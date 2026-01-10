@@ -1,7 +1,9 @@
 package dev.percym.nutrisport
 
-class JVMPlatform: Platform {
-    override val name: String = "Java ${System.getProperty("java.version")}"
-}
+import jdk.tools.jlink.internal.Platform
 
-actual fun getPlatform(): Platform = JVMPlatform()
+//class JVMPlatform: Platform {
+//    override val name: String = "Java ${System.getProperty("java.version")}"
+//}
+//
+//actual fun getPlatform(): Platform = JVMPlatform()
