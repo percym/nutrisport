@@ -15,3 +15,12 @@ val TextPrimary= Black
 val TextSecondary= Orange
 val TextWhite= White
 val TextBrand= Yellowish
+
+val IconPrimary= Black
+val IconSecondary= Orange
+val IconBrand= Yellowish
+val IconWhite= White
+
+val ButtonPrimary= Black
+val ButtonSecondary= Orange
+val ButtonDisabled= GrayDarker
