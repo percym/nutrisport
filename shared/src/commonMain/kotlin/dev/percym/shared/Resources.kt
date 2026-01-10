@@ -5,12 +5,15 @@ import nutrisport.shared.generated.resources.back_arrow
 import nutrisport.shared.generated.resources.book
 import nutrisport.shared.generated.resources.cat
 import nutrisport.shared.generated.resources.check
+import nutrisport.shared.generated.resources.checkmark_image
 import nutrisport.shared.generated.resources.close
 import nutrisport.shared.generated.resources.delete
 import nutrisport.shared.generated.resources.dollar
 import nutrisport.shared.generated.resources.edit_3
+import nutrisport.shared.generated.resources.google_logo
 import nutrisport.shared.generated.resources.grid
 import nutrisport.shared.generated.resources.home
+import nutrisport.shared.generated.resources.india
 import nutrisport.shared.generated.resources.log_in
 import nutrisport.shared.generated.resources.log_out
 import nutrisport.shared.generated.resources.map_pin
@@ -24,6 +27,9 @@ import nutrisport.shared.generated.resources.vertical_menu
 import nutrisport.shared.generated.resources.weight
 import nutrisport.shared.generated.resources.plus
 import nutrisport.shared.generated.resources.minus
+import nutrisport.shared.generated.resources.paypal_logo
+import nutrisport.shared.generated.resources.serbia
+import nutrisport.shared.generated.resources.usa
 
 object Resources {
     object Icon {
