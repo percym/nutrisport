@@ -71,6 +71,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(project(path=":shared"))
                 implementation(compose.material3)
+                implementation("com.github.stevdza-san:MessageBarCompose:1.0.8")
                 // Add KMP dependencies here
             }
         }
@@ -108,4 +109,11 @@ kotlin {
         }
     }
 
+}
+repositories {
+    google()
+    mavenCentral()
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
