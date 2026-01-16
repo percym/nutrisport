@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import dev.percym.auth.component.GoogleButton
 import dev.percym.shared.Alpha
 import dev.percym.shared.BebasNeueFont
@@ -70,16 +71,18 @@ fun AuthScreen() {
                         color = TextPrimary
                     )
                 }
-                GoogleButton(
-                    loading = loading,
-                    onClick = {
-                        loading = true
-                        scope.launch {
-                            // Show success/error message
-                            snackbarHostState.showSnackbar("Signing in...")
+                Box(modifier = Modifier.padding(all = 24.dp)) {
+                    GoogleButton(
+                        loading = loading,
+                        onClick = {
+                            loading = true
+                            scope.launch {
+                                // Show success/error message
+                                snackbarHostState.showSnackbar("Signing in...")
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }

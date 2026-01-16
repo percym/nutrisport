@@ -1,5 +1,6 @@
 package dev.percym.auth.component
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -75,8 +77,8 @@ fun GoogleButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ){
-            AnimatedVisibility(
-                visible = !loading
+            AnimatedContent(
+                targetState = loading,
 
             ) {
                 Icon(
@@ -84,12 +86,12 @@ fun GoogleButton(
                     contentDescription = "Google Logo",
                 )
             }
-            AnimatedVisibility(
-                visible = loading,
+            AnimatedContent(
+                targetState = loading,
                 modifier = Modifier.padding(start = 12.dp)
             ){
                 CircularProgressIndicator(
-                    modifier = Modifier.width(16.dp),
+                    modifier = Modifier.size(24.dp),
                     color = progressIndicatorColor,
                     strokeWidth = 2.dp
                 )
