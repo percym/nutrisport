@@ -2,8 +2,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.androidLint)
-    id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 kotlin {
@@ -11,9 +9,10 @@ kotlin {
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
+    // Add this JVM target
     jvm()
     androidLibrary {
-        namespace = "dev.percym.shared"
+        namespace = "dev.percym.navigation"
         compileSdk = 36
         minSdk = 24
 
@@ -34,7 +33,7 @@ kotlin {
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
-    val xcfName = "sharedKit"
+    val xcfName = "navigationKit"
 
     iosX64 {
         binaries.framework {
@@ -63,12 +62,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.ui)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
                 // Add KMP dependencies here
+                implementation(project(path=":auth"))
             }
         }
 

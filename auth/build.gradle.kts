@@ -12,6 +12,7 @@ kotlin {
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
+    jvm()
     androidLibrary {
         namespace = "dev.percym.auth"
         compileSdk = 36
@@ -71,7 +72,6 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(project(path=":shared"))
                 implementation(compose.material3)
-                implementation("com.github.stevdza-san:MessageBarCompose:1.0.8")
                 // Add KMP dependencies here
             }
         }
@@ -116,4 +116,5 @@ repositories {
     maven {
         url = uri("https://jitpack.io")
     }
+    mavenLocal()
 }
