@@ -92,6 +92,6 @@ kotlin {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "dev.percym.shared.generated.resources"
+//    packageOfResClass = "dev.percym.shared.generated.resources"
     generateResClass = always
 }

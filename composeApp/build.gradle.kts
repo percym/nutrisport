@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.google.services)
 }
 
 kotlin {
@@ -45,6 +46,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(project(path=":navigation"))
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
+            implementation("com.google.firebase:firebase-auth-ktx")
+            implementation("com.google.firebase:firebase-common-ktx")
+
 
         }
         commonTest.dependencies {
@@ -85,8 +90,12 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
     debugImplementation(compose.uiTooling)
+    implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
 }
+
 
 compose.desktop {
     application {

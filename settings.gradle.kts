@@ -12,11 +12,13 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        google()
     }
 }
 
 dependencyResolutionManagement {
     repositories {
+        google()
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")

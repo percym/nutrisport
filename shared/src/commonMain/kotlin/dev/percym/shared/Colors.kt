@@ -24,3 +24,7 @@ val IconWhite= White
 val ButtonPrimary= Black
 val ButtonSecondary= Orange
 val ButtonDisabled= GrayDarker
+
+val Surface = White;
+val SurfaceLighter= GrayLighter
+val SurfaceDarker= GrayDarker

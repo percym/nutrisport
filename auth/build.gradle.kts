@@ -12,7 +12,6 @@ kotlin {
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
-    jvm()
     androidLibrary {
         namespace = "dev.percym.auth"
         compileSdk = 36
@@ -72,6 +71,8 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(project(path=":shared"))
                 implementation(compose.material3)
+
+
                 // Add KMP dependencies here
             }
         }
@@ -87,6 +88,17 @@ kotlin {
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
+                implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
+                implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
+                implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
+                androidMain.dependencies {
+                    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+                    implementation("com.google.firebase:firebase-common-ktx:21.0.0")
+
+                    implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
+                    implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
+                }
+
             }
         }
 
@@ -105,6 +117,8 @@ kotlin {
                 // part of KMP’s default source set hierarchy. Note that this source set depends
                 // on common by default and will correctly pull the iOS artifacts of any
                 // KMP dependencies declared in commonMain.
+                implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
+                implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
             }
         }
     }

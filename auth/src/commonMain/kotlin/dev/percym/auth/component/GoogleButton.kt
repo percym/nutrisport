@@ -34,8 +34,10 @@ import dev.percym.shared.FontSize
 import dev.percym.shared.Gray
 import dev.percym.shared.GrayDarker
 import dev.percym.shared.IconSecondary
-import dev.percym.shared.Resources
+import dev.percym.shared.SurfaceDarker
+import dev.percym.shared.SurfaceLighter
 import dev.percym.shared.TextPrimary
+import nutrisport.shared.Resources
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -46,10 +48,10 @@ fun GoogleButton(
     loading: Boolean=false,
     primaryText: String="Sign in with Google",
     secondaryText: String="Please wait... ",
-    icon: DrawableResource=Resources.Image.GoogleLogo,
+    icon: DrawableResource= Resources.Image.GoogleLogo,
     shape: Shape =RoundedCornerShape(99.dp),
-    backgroundColor: Color= Gray,
-    borderColor: Color= GrayDarker,
+    backgroundColor: Color= SurfaceLighter,
+    borderColor: Color= SurfaceDarker,
     progressIndicatorColor: Color= IconSecondary,
     onClick:()->Unit,
     ){
@@ -77,17 +79,17 @@ fun GoogleButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ){
-            AnimatedContent(
-                targetState = loading,
-
+            AnimatedVisibility(
+                visible = !loading,
             ) {
                 Icon(
                     painter = painterResource(icon),
                     contentDescription = "Google Logo",
+                    tint = Color.Unspecified
                 )
             }
-            AnimatedContent(
-                targetState = loading,
+            AnimatedVisibility(
+                visible = loading,
                 modifier = Modifier.padding(start = 12.dp)
             ){
                 CircularProgressIndicator(

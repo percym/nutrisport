@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.mmk.kmpauth.core.KMPAuthInternalApi
+import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import dev.percym.auth.component.GoogleButton
 import dev.percym.shared.Alpha
 import dev.percym.shared.BebasNeueFont
@@ -30,19 +32,21 @@ import dev.percym.shared.TextSecondary
 import kotlinx.coroutines.launch
 
 @Composable
+@OptIn(KMPAuthInternalApi::class)
 fun AuthScreen() {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    var loading by remember { mutableStateOf(false) }
+    var loadingState by remember { mutableStateOf(false) }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+
     ) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    top = padding.calculateTopPadding(),
                     bottom = padding.calculateBottomPadding()
                 )
         ) {
@@ -72,16 +76,34 @@ fun AuthScreen() {
                     )
                 }
                 Box(modifier = Modifier.padding(all = 24.dp)) {
-                    GoogleButton(
-                        loading = loading,
-                        onClick = {
-                            loading = true
-                            scope.launch {
-                                // Show success/error message
-                                snackbarHostState.showSnackbar("Signing in...")
-                            }
-                        }
-                    )
+                   GoogleButtonUiContainerFirebase(
+                       onResult={result->
+                           result.onSuccess {user ->
+                               scope.launch {
+                                   // Show success/error message
+                                   snackbarHostState.showSnackbar("Signing in..." + user?.email)
+
+                               }
+                           }.onFailure {
+                               scope.launch {
+                                   // Show success/error message
+                                   snackbarHostState.showSnackbar("Signing error...")
+
+                               }
+                           }
+
+                       }
+                   ){
+                       GoogleButton(
+                           loading = loadingState,
+                           onClick = {
+                               loadingState=true
+                               this@GoogleButtonUiContainerFirebase.onClick()
+
+
+                           }
+                       )
+                   }
                 }
             }
         }
