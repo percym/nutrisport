@@ -15,7 +15,9 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+
     }
+
     
     listOf(
         iosArm64(),
@@ -27,14 +29,16 @@ kotlin {
         }
     }
     
-    jvm()
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.splash.screen)
-
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
+            implementation("com.google.firebase:firebase-auth-ktx")
+            implementation("com.google.firebase:firebase-common-ktx")
+            implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -46,9 +50,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(project(path=":navigation"))
-            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
-            implementation("com.google.firebase:firebase-auth-ktx")
-            implementation("com.google.firebase:firebase-common-ktx")
+
 
 
         }
@@ -89,12 +91,7 @@ android {
     }
 }
 
-dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    debugImplementation(compose.uiTooling)
-    implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
-}
+
 
 
 compose.desktop {

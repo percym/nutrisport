@@ -39,9 +39,7 @@ actual fun AuthScreen(navigateToHome: () -> Unit) {
     var loadingState by remember { mutableStateOf(false) }
 
     Scaffold(
-
         snackbarHost = { SnackbarHost(snackbarHostState) },
-
     ) { padding ->
         Box(
             modifier = Modifier
@@ -76,35 +74,29 @@ actual fun AuthScreen(navigateToHome: () -> Unit) {
                     )
                 }
                 Box(modifier = Modifier.padding(all = 24.dp)) {
-                   GoogleButtonUiContainerFirebase(
-                       onResult={result->
-                           result.onSuccess {user ->
-                               scope.launch {
-                                   // Show success/error message
-                                   snackbarHostState.showSnackbar("Signing in..." + user?.email)
-
-                               }
-                           }.onFailure {
-                               scope.launch {
-                                   // Show success/error message
-                                   snackbarHostState.showSnackbar("Signing error...")
-                                   loadingState=false
-
-                               }
-                           }
-
-                       }
-                   ){
-                       GoogleButton(
-                           loading = loadingState,
-                           onClick = {
-                               loadingState=true
-                               this@GoogleButtonUiContainerFirebase.onClick()
-
-
-                           }
-                       )
-                   }
+                    GoogleButtonUiContainerFirebase(
+                        onResult = { result ->
+                            result.onSuccess { user ->
+                                scope.launch {
+                                    snackbarHostState.showSnackbar("Signing in..." + user?.email)
+                                    navigateToHome()
+                                }
+                            }.onFailure {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar("Signing error...")
+                                    loadingState = false
+                                }
+                            }
+                        }
+                    ) {
+                        GoogleButton(
+                            loading = loadingState,
+                            onClick = {
+                                loadingState = true
+                                this@GoogleButtonUiContainerFirebase.onClick()
+                            }
+                        )
+                    }
                 }
             }
         }

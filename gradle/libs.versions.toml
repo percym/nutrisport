@@ -15,7 +15,7 @@ junit = "4.13.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 splash = "1.0.1"
-navigation = "2.8.0-alpha14"
+navigation = "2.8.0-alpha10"
 auth = "2.0.0"
 notifier = "1.1.0"
 firebase = "2.0.0"
@@ -96,3 +96,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 androidLint = { id = "com.android.lint", version.ref = "agp" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
