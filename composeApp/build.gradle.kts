@@ -39,6 +39,8 @@ kotlin {
             implementation("com.google.firebase:firebase-auth-ktx")
             implementation("com.google.firebase:firebase-common-ktx")
             implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
+            implementation(libs.koin.android)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -50,6 +52,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(project(path=":navigation"))
+            implementation(project(path=":di"))
 
 
 

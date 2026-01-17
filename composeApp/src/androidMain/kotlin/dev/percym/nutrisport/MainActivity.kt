@@ -12,15 +12,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.firebase.Firebase
+import com.google.firebase.initialize
 import com.mmk.kmpauth.google.GoogleAuthCredentials
 import com.mmk.kmpauth.google.GoogleAuthProvider
+import dev.percym.di.initializeKoin
 import kotlinx.coroutines.delay
+import org.koin.android.ext.koin.androidContext
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        initializeKoin (
+            config = {
+                androidContext(this@MainActivity)
+            }
+        )
+        Firebase.initialize(context = this)
         installSplashScreen()
         enableEdgeToEdge()
 
