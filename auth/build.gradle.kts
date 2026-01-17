@@ -64,16 +64,15 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-                implementation(libs.kotlin.stdlib)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.ui)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(project(path=":shared"))
+                implementation(project(path=":data"))
                 implementation(compose.material3)
-
-
+                implementation(libs.koin.compose)
                 // Add KMP dependencies here
             }
         }
@@ -89,18 +88,15 @@ kotlin {
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
-                implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
-                implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
-                implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
-                androidMain.dependencies {
-                    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
-                    implementation("com.google.firebase:firebase-common-ktx:21.0.0")
-
+                    implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
+                    implementation("com.google.firebase:firebase-auth-ktx")
+                    implementation("com.google.firebase:firebase-common-ktx")
                     implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
                     implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
+                    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
                 }
 
-            }
+
         }
 
         getByName("androidDeviceTest") {

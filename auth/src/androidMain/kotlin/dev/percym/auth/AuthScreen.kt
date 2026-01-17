@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
 @Composable
 @OptIn(KMPAuthInternalApi::class)
 actual fun AuthScreen(navigateToHome: () -> Unit) {
+    val viewModel = koinViewModel<AuthViewModel>()
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var loadingState by remember { mutableStateOf(false) }

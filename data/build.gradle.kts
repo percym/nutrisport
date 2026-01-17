@@ -7,12 +7,9 @@ plugins {
 }
 
 kotlin {
-    jvm {
-        withJava()
-    }
 
     androidLibrary {
-        namespace = "dev.percym.di"
+        namespace = "dev.percym.data"
         compileSdk = 36
         minSdk = 24
 
@@ -27,7 +24,7 @@ kotlin {
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
 
-    val xcfName = "diKit"
+    val xcfName = "dataKit"
 
     iosX64 {
         binaries.framework {
@@ -59,10 +56,10 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
-                implementation(libs.koin.core)
-                implementation(libs.koin.compose)
-                implementation(libs.koin.compose.viewmodel)
-                implementation(project(":auth"))
+                implementation(libs.firebase.firestore)
+                implementation(libs.firebase.auth)
+                implementation(project(path = ":shared"))
+
             }
         }
 
@@ -72,13 +69,12 @@ kotlin {
             }
         }
 
-        jvmMain {
-            dependencies {
-            }
-        }
 
         androidMain {
             dependencies {
+                implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.1.0"))
+                implementation("com.google.firebase:firebase-firestore-ktx")
+                implementation("com.google.firebase:firebase-auth-ktx")
             }
         }
 
