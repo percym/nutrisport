@@ -74,6 +74,7 @@ kotlin {
                 implementation(compose.material3)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
+                implementation(libs.compose.navigation)
                 // Add KMP dependencies here
             }
         }
