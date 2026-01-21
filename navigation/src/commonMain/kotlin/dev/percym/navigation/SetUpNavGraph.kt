@@ -15,11 +15,9 @@ fun SetUpNavGraph(){
         startDestination = Screen.Auth
     ){
         composable<Screen.Auth>{
-            AuthScreen(
-                navigateToHome = {
-                    // TODO: Navigate to home
-                }
-            )
+            AuthScreen(navigateToHome = {
+
+            })
         }
 
     }

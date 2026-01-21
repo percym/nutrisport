@@ -1,8 +1,9 @@
 package dev.percym.shared.domain
 
+import kotlinx.serialization.Serializable
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-
+@Serializable
 data class Customer @OptIn(ExperimentalUuidApi::class) constructor(
     val id: String= Uuid.random().toHexString(),
     val firstName: String,
@@ -14,7 +15,7 @@ data class Customer @OptIn(ExperimentalUuidApi::class) constructor(
     val phoneNumber: PhoneNumber?=null,
     val cart: List<CartItem> = emptyList()
 )
-
+@Serializable
 data class PhoneNumber(
     val diallingCode: Int,
     val number: String,

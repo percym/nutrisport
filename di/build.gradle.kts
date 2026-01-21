@@ -7,9 +7,6 @@ plugins {
 }
 
 kotlin {
-    jvm {
-        withJava()
-    }
 
     androidLibrary {
         namespace = "dev.percym.di"
@@ -63,6 +60,7 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
                 implementation(project(":auth"))
+                implementation(project(":data"))
             }
         }
 
@@ -72,10 +70,6 @@ kotlin {
             }
         }
 
-        jvmMain {
-            dependencies {
-            }
-        }
 
         androidMain {
             dependencies {

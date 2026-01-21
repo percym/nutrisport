@@ -22,6 +22,7 @@ class CustomerRepositoryImpl: CustomerRepository{
                 email = user.email ?: "Unknown"
 
             )
+
             val customerExists=customerCollection.document(user.uid).get().exists
                if(customerExists){
                    onSuccess()

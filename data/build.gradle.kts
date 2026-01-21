@@ -13,6 +13,7 @@ kotlin {
         compileSdk = 36
         minSdk = 24
 
+
         withHostTestBuilder {
         }
 
@@ -23,6 +24,18 @@ kotlin {
         }
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                }
+            }
+        }
+    }
+
+    jvmToolchain(17)
 
     val xcfName = "dataKit"
 

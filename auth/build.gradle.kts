@@ -73,6 +73,7 @@ kotlin {
                 implementation(project(path=":data"))
                 implementation(compose.material3)
                 implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
                 // Add KMP dependencies here
             }
         }
@@ -93,7 +94,7 @@ kotlin {
                     implementation("com.google.firebase:firebase-common-ktx")
                     implementation("io.github.mirzemehdi:kmpauth-google:2.0.0")
                     implementation("io.github.mirzemehdi:kmpauth-firebase:2.0.0")
-                    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+                    implementation(libs.koin.android)
                 }
 
 

@@ -30,6 +30,7 @@ import dev.percym.shared.FontSize
 import dev.percym.shared.TextPrimary
 import dev.percym.shared.TextSecondary
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @OptIn(KMPAuthInternalApi::class)
@@ -80,18 +81,25 @@ actual fun AuthScreen(navigateToHome: () -> Unit) {
                    GoogleButtonUiContainerFirebase(
                        onResult={result->
                            result.onSuccess {user ->
-                               scope.launch {
-                                   // Show success/error message
-                                   snackbarHostState.showSnackbar("Signing in..." + user?.email)
+                               viewModel.createCustomer(
+                                   user=user,
+                                   onSuccess = {
+                                       scope.launch {
+                                           // Show success/error message
+                                           snackbarHostState.showSnackbar("Signing in..." + user?.email)
+                                       }
+                                   },
+                                   onError = {}
+                               )
+                               loadingState=false
 
-                               }
                            }.onFailure {
                                scope.launch {
                                    // Show success/error message
                                    snackbarHostState.showSnackbar("Signing error...")
-                                   loadingState=false
+                                                                  }
+                               loadingState=false
 
-                               }
                            }
 
                        }
