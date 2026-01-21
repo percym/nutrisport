@@ -1,5 +1,6 @@
 package dev.percym.home
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -57,13 +60,18 @@ fun HomeGraphScreen(){
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(
-                        text = selectedDestination.title,
-                        fontFamily = BebasNeueFont(),
-                        fontSize = FontSize.LARGE,
-                        color= TextPrimary
+                    AnimatedContent(
+                        targetState = selectedDestination
+                    ){destination->
+                        Text(
+                            text = destination.title,
+                            fontFamily = BebasNeueFont(),
+                            fontSize = FontSize.LARGE,
+                            color= TextPrimary
 
-                    )
+                        )
+
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = {}){
@@ -73,7 +81,15 @@ fun HomeGraphScreen(){
                             tint = IconPrimary
                         )
                     }
-                }
+                },
+                colors= TopAppBarDefaults.topAppBarColors(
+                    containerColor = Surface,
+                    scrolledContainerColor = Surface,
+                    navigationIconContentColor = IconPrimary,
+                    titleContentColor = TextPrimary,
+                    actionIconContentColor = IconPrimary
+                )
+
             )
         },
 
