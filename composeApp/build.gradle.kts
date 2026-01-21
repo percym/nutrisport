@@ -55,6 +55,7 @@ kotlin {
             implementation(project(path=":navigation"))
             implementation(project(path=":di"))
             implementation(project(path=":data"))
+            implementation(project(path=":shared"))
 
 
 
