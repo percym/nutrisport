@@ -1,7 +1,9 @@
 package dev.percym.nutrisport
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
@@ -23,7 +25,7 @@ import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
         initializeKoin (
             config = {
                 androidContext(this@MainActivity)
@@ -31,7 +33,18 @@ class MainActivity : ComponentActivity() {
         )
         Firebase.initialize(context = this)
         installSplashScreen()
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT
+            ),
+            navigationBarStyle = SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT
+            ),
+
+        )
+        super.onCreate(savedInstanceState)
 
         setContent {
             var isAuthReady by remember { mutableStateOf(false) }
