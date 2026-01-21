@@ -1,4 +1,4 @@
-package dev.percym.home.common
+package dev.percym.home.component
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background

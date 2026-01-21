@@ -13,8 +13,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -26,7 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import dev.percym.home.common.BottomBar
+import dev.percym.home.component.BottomBar
 import dev.percym.home.domain.BottomBarDestination
 import dev.percym.shared.BebasNeueFont
 import dev.percym.shared.FontSize
