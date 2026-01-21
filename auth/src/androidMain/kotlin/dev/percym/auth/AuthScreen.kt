@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import com.mmk.kmpauth.core.KMPAuthInternalApi
 import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import dev.percym.auth.component.GoogleButton
@@ -41,16 +43,17 @@ actual fun AuthScreen(navigateToHome: () -> Unit) {
     var loadingState by remember { mutableStateOf(false) }
 
     Scaffold(
-
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.padding(16.dp)
+            )
+        },
     ) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    bottom = padding.calculateBottomPadding()
-                )
+                .padding(padding)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Column(
@@ -85,19 +88,32 @@ actual fun AuthScreen(navigateToHome: () -> Unit) {
                                    user=user,
                                    onSuccess = {
                                        scope.launch {
-                                           // Show success/error message
-                                           snackbarHostState.showSnackbar("Signing in..." + user?.email)
+                                           snackbarHostState.showSnackbar(
+                                               message = "Welcome ${user?.displayName ?: user?.email}!",
+                                               duration = SnackbarDuration.Short
+                                           )
+                                           delay(1500)
+                                           navigateToHome()
                                        }
                                    },
-                                   onError = {}
+                                   onError = { errorMsg ->
+                                       scope.launch {
+                                           snackbarHostState.showSnackbar(
+                                               message = "Error logging in",
+                                               duration = SnackbarDuration.Long
+                                           )
+                                       }
+                                   }
                                )
                                loadingState=false
 
-                           }.onFailure {
+                           }.onFailure { error ->
                                scope.launch {
-                                   // Show success/error message
-                                   snackbarHostState.showSnackbar("Signing error...")
-                                                                  }
+                                   snackbarHostState.showSnackbar(
+                                       message = error.message ?: "Sign in failed",
+                                       duration = SnackbarDuration.Long
+                                   )
+                               }
                                loadingState=false
 
                            }
