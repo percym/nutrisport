@@ -2,11 +2,16 @@ package dev.percym
 
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseUser
+import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
 import dev.percym.data.CustomerRepository
 import dev.percym.shared.domain.Customer
 
 class CustomerRepositoryImpl: CustomerRepository{
+    override fun getCurrentUserID(): String? {
+        return Firebase.auth.currentUser?.uid
+    }
+
     override suspend fun createCustomer(
         user: FirebaseUser?,
         onSuccess: () -> Unit,

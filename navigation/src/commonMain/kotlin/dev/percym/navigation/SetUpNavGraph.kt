@@ -6,19 +6,28 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 import dev.percym.auth.AuthScreen
+import dev.percym.home.HomeGraphScreen
+
 
 @Composable
-fun SetUpNavGraph(){
+fun SetUpNavGraph(startDestination:Screen= Screen.Auth){
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Screen.Auth
+        startDestination = startDestination
     ){
-        composable<Screen.Auth>{
-            AuthScreen(navigateToHome = {
-
+        composable<Screen.Auth>{ AuthScreen(navigateToHome = {
+                navController.navigate(Screen.HomeGraph){
+                    popUpTo(Screen.Auth){
+                        inclusive=true
+                    }
+                }
             })
         }
+        composable<Screen.HomeGraph>{
+            HomeGraphScreen()
+        }
+
 
     }
 }
