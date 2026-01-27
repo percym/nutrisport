@@ -23,7 +23,6 @@ fun CustomDrawer(
     onProfileClick: () -> Unit,
     onContactUsClick: () -> Unit,
     onSignOutClick: () -> Unit,
-    onSignInClick: () -> Unit,
     onAdminPanelClick: () -> Unit,
 ){
     Column (
@@ -31,7 +30,6 @@ fun CustomDrawer(
                     .fillMaxHeight()
                     .fillMaxWidth(0.6f)
                     .padding(horizontal = 12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
 
     ){
         Spacer(modifier = Modifier.height(50.dp))
