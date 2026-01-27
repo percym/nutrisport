@@ -100,7 +100,7 @@ fun HomeGraphScreen(){
                 .scale(animatedScale)
                 .shadow(
                     elevation = 20.dp,
-                    shape = RoundedCornerShape(size = 20.dp)
+                    shape = RoundedCornerShape(size = animatedRadius)
                 )
         ){
             Scaffold(
@@ -122,13 +122,28 @@ fun HomeGraphScreen(){
                             }
                         },
                         navigationIcon = {
-                            IconButton(onClick = {drawerState= drawerState.opposite()}){
-                                Icon(
-                                    painter = painterResource(Resources.Icon.Menu),
-                                    contentDescription = "Menu icon",
-                                    tint = IconPrimary
-                                )
-                            }
+                           AnimatedContent(
+                               targetState = drawerState
+                           ){drawer->
+                               if(drawer.isOpened()){
+                                   IconButton(onClick = {drawerState= drawerState.opposite()}){
+                                       Icon(
+                                           painter = painterResource(Resources.Icon.Close),
+                                           contentDescription = "Close icon",
+                                           tint = IconPrimary
+                                       )
+                                   }
+                               }else{
+                                   IconButton(onClick = {drawerState= drawerState.opposite()}){
+                                       Icon(
+                                           painter = painterResource(Resources.Icon.Menu),
+                                           contentDescription = "Menu icon",
+                                           tint = IconPrimary
+                                       )
+                                   }
+                               }
+
+                           }
                         },
                         colors= TopAppBarDefaults.topAppBarColors(
                             containerColor = Surface,
