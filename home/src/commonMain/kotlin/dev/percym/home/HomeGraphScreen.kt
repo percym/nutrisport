@@ -109,7 +109,7 @@ fun HomeGraphScreen(
             onContactUsClick = {},
             onSignOutClick = {
                 viewModel.signOut(
-                    onSuccess = {navigateToAuth},
+                    onSuccess = navigateToAuth,
                     onError = {message->
                         scope.launch {
                             snackbarHostState.showSnackbar(
