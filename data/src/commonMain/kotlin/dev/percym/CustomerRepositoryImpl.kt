@@ -6,6 +6,7 @@ import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
 import dev.percym.data.CustomerRepository
 import dev.percym.shared.domain.Customer
+import dev.percym.shared.util.RequestState
 
 class CustomerRepositoryImpl: CustomerRepository{
     override fun getCurrentUserID(): String? {
@@ -46,4 +47,12 @@ class CustomerRepositoryImpl: CustomerRepository{
        }
     }
 
+    override suspend fun signOut(): RequestState<Unit> {
+        return try {
+            Firebase.auth.signOut()
+            RequestState.Success(data=Unit)
+        } catch (e: Exception) {
+            RequestState.Error("Error while signing out ${e.message.toString()}")
+        } as RequestState<Unit>
+    }
 }

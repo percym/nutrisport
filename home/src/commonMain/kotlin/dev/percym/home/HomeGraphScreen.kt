@@ -1,6 +1,7 @@
 package dev.percym.home
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -18,6 +19,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -25,11 +29,13 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,6 +47,7 @@ import dev.percym.home.domain.BottomBarDestination
 import dev.percym.home.domain.CustomDrawerState
 import dev.percym.home.domain.isOpened
 import dev.percym.home.domain.opposite
+import dev.percym.shared.Alpha
 import dev.percym.shared.BebasNeueFont
 import dev.percym.shared.FontSize
 import dev.percym.shared.IconPrimary
@@ -49,12 +56,16 @@ import dev.percym.shared.SurfaceLighter
 import dev.percym.shared.TextPrimary
 import dev.percym.shared.navigation.Screen
 import dev.percym.shared.util.getScreenWidth
+import kotlinx.coroutines.launch
 import nutrisport.shared.Resources
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeGraphScreen(){
+fun HomeGraphScreen(
+    navigateToAuth:()-> Unit
+){
     val navController = rememberNavController()
     val currentRoute= navController.currentBackStackEntryAsState()
     val selectedDestination by remember {
@@ -75,21 +86,40 @@ fun HomeGraphScreen(){
     val animatedOffset by animateDpAsState(
         targetValue = if (drawerState.isOpened()) offsetValue else 0.dp
     )
+    val animatedBackGround by animateColorAsState(
+        targetValue = if (drawerState.isOpened()) SurfaceLighter else Surface
+    )
+
     val animatedScale by animateFloatAsState(
         targetValue = if (drawerState.isOpened()) 0.8f else 1f
     )
     val animatedRadius by animateDpAsState(
         targetValue = if (drawerState.isOpened()) 20.dp else 0.dp)
+    val viewModel= koinViewModel<HomeGraphViewModel>()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier.fillMaxSize()
-            .background(SurfaceLighter)
+            .background(animatedBackGround)
             .systemBarsPadding()
     ){
         CustomDrawer(
             onProfileClick = {},
             onContactUsClick = {},
-            onSignOutClick = {},
+            onSignOutClick = {
+                viewModel.signOut(
+                    onSuccess = {navigateToAuth},
+                    onError = {message->
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                duration = SnackbarDuration.Long
+                            )
+                        }
+                    }
+                )
+                             },
             onAdminPanelClick = {},
         )
         Box(
@@ -100,7 +130,9 @@ fun HomeGraphScreen(){
                 .scale(animatedScale)
                 .shadow(
                     elevation = 20.dp,
-                    shape = RoundedCornerShape(size = animatedRadius)
+                    shape = RoundedCornerShape(size = animatedRadius),
+                    spotColor = Color.Black.copy(alpha =  Alpha.DISABLED),
+                    ambientColor = Color.Black.copy(alpha =  Alpha.DISABLED),
                 )
         ){
             Scaffold(
@@ -155,8 +187,15 @@ fun HomeGraphScreen(){
 
                     )
                 },
+                snackbarHost = {
+                    SnackbarHost(
+                        hostState = snackbarHostState,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
 
                 ) {padding ->
+
                 Column(
                     modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding())
                 ){
