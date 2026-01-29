@@ -58,6 +58,9 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(libs.kotlinx.serialization)
+                implementation(compose.material3)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
             }
         }
 
@@ -74,6 +77,22 @@ kotlin {
 
         androidMain {
             dependencies {
+                // Import the Compose BOM
+                implementation ("androidx.compose:compose-bom:2024.01.00")
+
+                // Android Studio Preview support
+                implementation ("androidx.compose.ui:ui-tooling-preview")
+
+                // These MUST be "implementation" or "api" inside sourceSets
+                // because KMP handles "debug" configurations differently
+                implementation ("androidx.compose.ui:ui-tooling")
+                implementation ("androidx.compose.ui:ui-test-manifest")
+            }
+        }
+        androidUnitTest {
+            dependencies {
+                implementation ("androidx.compose:compose-bom:2024.01.00")
+                implementation ("androidx.compose.ui:ui-test-junit4")
             }
         }
 

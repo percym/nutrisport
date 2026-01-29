@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import dev.percym.shared.BorderIdle
 import dev.percym.shared.FontSize
 import dev.percym.shared.Gray
 import dev.percym.shared.GrayDarker
@@ -51,7 +52,7 @@ fun GoogleButton(
     icon: DrawableResource= Resources.Image.GoogleLogo,
     shape: Shape =RoundedCornerShape(99.dp),
     backgroundColor: Color= SurfaceLighter,
-    borderColor: Color= SurfaceDarker,
+    borderColor: Color= BorderIdle,
     progressIndicatorColor: Color= IconSecondary,
     onClick:()->Unit,
     ){

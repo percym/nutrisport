@@ -29,6 +29,7 @@ kotlin {
             implementation(project(":auth"))
             implementation(project(":shared"))
             implementation(project(":home"))
+            implementation(project(":profile"))
             implementation(libs.compose.navigation)
             implementation(libs.kotlinx.serialization)
         }

@@ -64,7 +64,9 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeGraphScreen(
-    navigateToAuth:()-> Unit
+    navigateToAuth:()-> Unit,
+    navigateToProfile: () -> Unit,
+
 ){
     val navController = rememberNavController()
     val currentRoute= navController.currentBackStackEntryAsState()
@@ -105,7 +107,7 @@ fun HomeGraphScreen(
             .systemBarsPadding()
     ){
         CustomDrawer(
-            onProfileClick = {},
+            onProfileClick = navigateToProfile,
             onContactUsClick = {},
             onSignOutClick = {
                 viewModel.signOut(
@@ -204,9 +206,10 @@ fun HomeGraphScreen(
                         navController = navController,
                         startDestination = Screen.ProductsOverview
                     ) {
-                        composable<Screen.ProductsOverview>{}
-                        composable<Screen.Cart>{}
-                        composable<Screen.Categories>{}
+                        composable<Screen.ProductsOverview> {}
+                        composable<Screen.Cart> {}
+                        composable<Screen.Categories> {}
+                        composable<Screen.Profile> {}
 
                     }
                     Spacer(modifier =Modifier.height(12.dp))
